@@ -5,6 +5,8 @@ const clearButtons = document.querySelectorAll("[data-clear]");
 
 document.addEventListener("DOMContentLoaded", initialize);
 
+//si jala
+
 //Aqui inicia la app
 
 function initialize() {
@@ -202,15 +204,23 @@ function handleDragDrop() {
 function handleFormSubmit(e) {
   e.preventDefault();
 
-  const itemName = document.getElementById("item").value;
-  if (itemName.trim().length === 0) {
-    alert("Please enter a valid item name!");
+  const itemInput = document.getElementById("item");
+  const itemValue = itemInput.value.trim();
+
+  if (itemValue.length === 0) {
+    alert("Por favor ingresa al menos un artículo.");
     return;
   }
 
-  addItem(itemName);
+  const itemsToAdd = itemValue.split(",").map((item) => item.trim());
 
-  this.reset();
+  itemsToAdd.forEach((itemName) => {
+    if (itemName.length > 0) {
+      addItem(itemName);
+    }
+  });
+
+  itemInput.value = "";
 }
 
 function handleFilterSelection(e) {
